@@ -20,3 +20,7 @@ where (
         chain = 'arbitrum'
    and DVN = 0xf2e380c90e6c09721297526dbc74f870e114dfcb
 )
+   or (
+        chain = 'bnb'
+   and DVN = 0xfa9ba83c102283958b997adc8b44ed3a3cdb5dda
+)
