@@ -3,7 +3,7 @@ with txs as (
     select distinct
             evt_tx_hash
         from dune.zeinab_team_8277.result_transaction_list_include_fee_paide_to_l0_canary_dvn_wbtc_canary_dvn
-        where evt_block_date >= current_date - interval '5' month
+        where evt_block_date >= current_date - interval '6' month
 )
 , filtered_transfers as (
         select
@@ -33,7 +33,6 @@ with txs as (
                 0x0A73d885CdD66adF69c6D64c0609e55C527dB2BE
         , 0xfb072b42907dA2Bf7A8E8cB5dCAa790D45Fd81a8
 )
-   and timestamp >= current_date - interval '5' month
 )
 select
     t.block_date

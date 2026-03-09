@@ -27,7 +27,7 @@ with filtered_transfers as (
                 0x299AD4299Da5b2b93Fba4c96967B040C7F611099
         , 0x5A9610919f5e81183823A2be4Bd1BeB2B4da2a20
 )
-   and timestamp >= date_trunc('hour', current_timestamp - interval '10' month)
+   and timestamp >= date_trunc('hour', current_timestamp - interval '11' month)
 )
 select
     t.block_date

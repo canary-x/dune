@@ -8,7 +8,7 @@ with filtered_transfers as (
         , t.blockchain
         from tokens.transfers t
             inner join dune.zeinab_team_8277.result_transaction_list_include_fee_paide_to_l0_canary_dvn_wbtc_canary_dvn l on l.evt_tx_hash = t.tx_hash
-        where t.block_date >= current_date - interval '2' month
+        where t.block_date >= current_date - interval '3' month
    and t.blockchain in ('bnb')
    and t.contract_address in (0x2A7e3392458307493C86388d5E544AAd93286836)
 )
@@ -19,8 +19,7 @@ with filtered_transfers as (
         , timestamp
         , price
         from dune.saharap.result_filter_prices_day
-        where timestamp >= current_date - interval '2' month
-   and blockchain in ('bnb')
+        where blockchain in ('bnb')
    and contract_address in (0x2A7e3392458307493C86388d5E544AAd93286836)
 )
 select

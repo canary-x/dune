@@ -20,7 +20,7 @@ with filtered_transfers as (
         from prices.day
         where blockchain in ('base')
    and contract_address in (0xD080eD3c74a20250a2c9821885203034ACD2D5ae)
-   and timestamp >= current_date - interval '8' month
+   and timestamp >= current_date - interval '9' month
 )
 select
     t.block_date
