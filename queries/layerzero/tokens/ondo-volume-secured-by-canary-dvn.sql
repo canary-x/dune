@@ -3,18 +3,24 @@ with filtered_transfers as (
     select
         t.tx_hash
         , t.block_date
-        , t.amount
+        , SUM(t.amount) as amount
         , t.contract_address
         , t.blockchain
         from tokens.transfers t
-            inner join dune.zeinab_team_8277.result_transaction_list_include_fee_paide_to_l0_canary_dvn_wbtc_canary_dvn l on l.evt_tx_hash = t.tx_hash
-        where t.block_date >= current_date - interval '3' month
-   and t.blockchain in ('ethereum', 'arbitrum')
+            inner join dune.zeinab_team_8277.result_transaction_list_include_fee_paid_to_lz_canary_dvn l on l.tx_hash = t.tx_hash
+        where t.block_date >= current_date - INTERVAL '1' DAY - INTERVAL '8' MONTH
+   and t.blockchain in ('arbitrum', 'ethereum', 'mantle', 'sei')
    and t.contract_address in (
-                0x96F6eF951840721AdBF46Ac996b59E0235CB985C
-        , 0x35e050d3C0eC2d29D269a8EcEa763a183bDF9A9D
-        , 0xaf88d065e77c8cC2239327C5EDb3A432268e5831
+                0x35e050d3C0eC2d29D269a8EcEa763a183bDF9A9D
+        , 0x96F6eF951840721AdBF46Ac996b59E0235CB985C
+        , 0x5bE26527e817998A7206475496fDE1E68957c5A6
+        , 0x54cD901491AeF397084453F4372B93c33260e2A6
 )
+        group by
+    t.tx_hash
+    , t.block_date
+    , t.contract_address
+    , t.blockchain
 )
         , filtered_prices as (
         select
@@ -22,19 +28,13 @@ with filtered_transfers as (
         , blockchain
         , timestamp
         , price
-        from dune.saharap.result_filter_prices_day
-        where blockchain in ('ethereum', 'arbitrum')
-   and contract_address in (
-                0x96F6eF951840721AdBF46Ac996b59E0235CB985C
-        , 0x35e050d3C0eC2d29D269a8EcEa763a183bDF9A9D
-        , 0xaf88d065e77c8cC2239327C5EDb3A432268e5831
-)
+        from dune.zeinab_team_8277.result_filter_prices_day
+        where blockchain in ('arbitrum')
+   and contract_address in (0x35e050d3C0eC2d29D269a8EcEa763a183bDF9A9D)
 )
 select
     t.block_date
     , t.amount as volume
     , t.amount * p.price as volume_USD
 from filtered_transfers t
-    left join filtered_prices p on p.contract_address = t.contract_address
-   and p.blockchain = t.blockchain
-   and p.timestamp = t.block_date;
+    left join filtered_prices p on p.timestamp = t.block_date
