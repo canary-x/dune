@@ -3,14 +3,19 @@ with filtered_transfers as (
     select
         t.tx_hash
         , t.block_date
-        , t.amount
+        , SUM(t.amount) as amount
         , t.contract_address
         , t.blockchain
         from tokens.transfers t
-            inner join dune.zeinab_team_8277.result_transaction_list_include_fee_paide_to_l0_canary_dvn_wbtc_canary_dvn l on l.evt_tx_hash = t.tx_hash
-        where t.block_date >= current_date - interval '4' month
+            inner join dune.zeinab_team_8277.result_transaction_list_include_fee_paid_to_lz_canary_dvn l on l.tx_hash = t.tx_hash
+        where t.block_date >= current_date - INTERVAL '1' DAY - INTERVAL '10' MONTH
    and t.blockchain in ('ethereum')
    and t.contract_address in (0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf)
+        group by
+    t.tx_hash
+    , t.block_date
+    , t.contract_address
+    , t.blockchain
 )
         , filtered_prices as (
         select
@@ -18,7 +23,7 @@ with filtered_transfers as (
         , blockchain
         , timestamp
         , price
-        from dune.saharap.result_filter_prices_day
+        from dune.zeinab_team_8277.result_filter_prices_day
         where blockchain in ('ethereum')
    and contract_address in (0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf)
 )
@@ -27,6 +32,4 @@ select
     , t.amount as volume
     , t.amount * p.price as volume_USD
 from filtered_transfers t
-    left join filtered_prices p on p.contract_address = t.contract_address
-   and p.blockchain = t.blockchain
-   and p.timestamp = t.block_date;
+    left join filtered_prices p on p.timestamp = t.block_date
