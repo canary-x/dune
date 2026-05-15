@@ -3,13 +3,13 @@ with weeth as (
     select
         COUNT(*) as tx_count
         , SUM(volume_USD) as sum_volume_USD
-        from dune.zeinab_team_8277.result_weeth_secured_volume_canary_dvn
+        from query_6852629
 )
         , wbtc as (
         select
         COUNT(*) as tx_count
         , SUM(volume_USD) as sum_volume_USD
-        from dune.zeinab_team_8277.result_wbtc_secured_volume_canary_dvn
+        from dune.zeinab_team_8277.result_result_wbtc_secured_volume_canary_dvn
 )
         , thbill as (
         select
@@ -45,7 +45,7 @@ with weeth as (
         select
         COUNT(*) as tx_count
         , SUM(volume_USD) as sum_volume_USD
-        from dune.zeinab_team_8277.result_hemi_filtered_transfers
+        from dune.zeinab_team_8277.result_hemi_network_filtered_transfers
 )
         , stable as (
         select
@@ -112,6 +112,12 @@ with weeth as (
         COUNT(*) as tx_count
         , SUM(volume_USD) as sum_volume_USD
         from dune.zeinab_team_8277.result_morpho_filtered_transfers
+)
+        , stargate as (
+        select
+        COUNT(*) as tx_count
+        , SUM(volume_USD) as sum_volume_USD
+        from query_7507699
 )
         , total as (
         select
@@ -208,6 +214,11 @@ with weeth as (
         tx_count
         , sum_volume_USD
         from morpho
+        union all
+    select
+        tx_count
+        , sum_volume_USD
+        from stargate
 )
 select
     SUM(tx_count) as total_tx_count
