@@ -3,7 +3,7 @@ with weeth as (
     select
         COUNT(*) as tx_count
         , SUM(volume_USD) as sum_volume_USD
-        from query_6852629
+        from query_7508645
 )
         , wbtc as (
         select
