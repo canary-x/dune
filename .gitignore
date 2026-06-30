@@ -1,0 +1,211 @@
+# =============================================================================
+# AWS CREDENTIALS & CONFIG
+# Never commit AWS keys, tokens, or account config under any circumstances.
+# =============================================================================
+
+# AWS CLI credential and config files
+.aws/
+.aws/credentials
+.aws/config
+
+# AWS credential/config files that may appear in project roots
+aws-credentials
+aws-credentials.*
+aws_credentials
+aws_credentials.*
+credentials.json
+credentials.yml
+credentials.yaml
+
+# AWS SAM / CDK / Pulumi local state and secrets
+.aws-sam/
+cdk.context.json
+cdk.out/
+.pulumi/
+
+# SSM / Secrets Manager exported values
+secrets.json
+secrets.yml
+secrets.yaml
+*secrets*.json
+*secrets*.yml
+*secrets*.yaml
+
+# Packer secrets
+packer/secrets.json
+packer/**/manifest-*.json
+
+
+# =============================================================================
+# ENVIRONMENT & CONFIGURATION FILES
+# .env files are the most common accidental leak vector.
+# =============================================================================
+
+.env
+.env.*
+*.env
+.env.local
+.env.*.local
+config.env
+config.*.env
+
+# Other common config patterns holding secrets
+providers.json
+providers-*.json
+mnemonics.json
+proxies.json
+oracles.json
+
+
+# =============================================================================
+# PRIVATE KEYS & CERTIFICATES
+# All private key and certificate formats -- covers SSH, TLS, PKCS, Java, etc.
+# =============================================================================
+
+# SSH keys
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+id_ecdsa
+id_ecdsa.*
+id_dsa
+id_dsa.*
+*.pub
+
+# PEM / PKCS formats (covers TLS certs, AWS key pairs, code-signing certs)
+*.pem
+*.key
+*.p8
+*.p10
+*.p12
+*.p7b
+*.p7c
+*.p7r
+*.p7s
+*.pfx
+
+# DER / raw certificate formats
+*.crt
+*.cer
+*.der
+
+
+# =============================================================================
+# SECRETS IN CODE & CONFIG PATTERNS
+# Catch common filenames that tend to hold tokens or passwords.
+# =============================================================================
+
+*secret*
+!*secrets.template*
+!*secret.template*
+*password*
+*passwd*
+*apikey*
+*api_key*
+*api-key*
+
+
+# =============================================================================
+# IDE & EDITOR FILES
+# =============================================================================
+
+# JetBrains (IntelliJ, GoLand, PyCharm, WebStorm, etc.)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+
+
+# =============================================================================
+# OPERATING SYSTEM FILES
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+
+
+# =============================================================================
+# BUILD ARTEFACTS & DEPENDENCIES
+# =============================================================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.pnp.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+.env/
+
+# Go
+vendor/
+
+# General build / output directories
+out/
+dist/
+build/
+coverage/
+.cache/
+cache/
+
+# Logs
+*.log
+logs/
+lcov.info
+
+
+# =============================================================================
+# BROADCAST / CHAIN ARTEFACTS  (Foundry / Hardhat)
+# Keeps the broadcast directory but excludes local-chain deployments.
+# =============================================================================
+
+!broadcast/
+broadcast/*/
+broadcast/*/31337/
+
+
